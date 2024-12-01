@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zurich Portal
 
-## Getting Started
+The Zurich Portal is a web application built with **Next.js**. It allows users to log in via Google OAuth2, view filtered user lists, and manage their sessions securely. The application leverages **NextAuth.js** for authentication, **Redux Toolkit** for state management, and **Axios** for API interactions.
 
-First, run the development server:
+---
+
+## Features
+
+- Google OAuth2 authentication
+- Protected routes for authorized access
+- Paginated user data fetching and filtering
+- Email masking with toggle visibility
+- Modular structure with reusable components
+- Fully tested with Jest and React Testing Library
+
+---
+
+## Prerequisites
+
+Before running the project, ensure the following are installed:
+
+- **Node.js** (version 14.x or higher)
+- **npm** (version 6.x or higher)
+
+---
+
+## Installation
+
+### Clone the Repository
+
+To clone the repository, run the following command:
+
+```bash
+git clone https://github.com/your-repo/zurich-portal.git
+cd zurich-portal
+```
+
+### Install Dependencies
+
+After cloning the repository, install the required dependencies:
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env.local` file in the root directory and add the following environment variables:
+
+```env
+GOOGLE_CLIENT_ID=<your-google-client-id>
+GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+NEXTAUTH_SECRET=<your-nextauth-secret>
+```
+
+- Replace `<your-google-client-id>` and `<your-google-client-secret>` with your Google OAuth2 credentials.
+- Generate a random value for `NEXTAUTH_SECRET` using a command like `openssl rand -base64 32`.
+
+---
+
+## Running the Application
+
+### Start the Development Server
+
+To start the development server, run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- The application will be available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Access the Application
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Open your browser and navigate to `http://localhost:3000`.
+- Log in using your Google account.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project is organized as follows:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```plaintext
+zurich-portal/
+├── pages/
+│   ├── index.js          # Login page (landing page)
+│   ├── users.js          # Protected user list page
+│   ├── auth-error.js     # Error page for unauthorized access
+│   ├── api/
+│   │   └── auth/
+│   │       └── [...nextauth].js  # NextAuth.js configuration
+├── components/
+│   ├── Header.js         # Reusable header component
+│   ├── Footer.js         # Reusable footer component
+│   ├── UsersList.js      # Component for displaying users
+├── redux/
+│   ├── store.js          # Redux store configuration
+│   └── userSlice.js      # User slice for state management
+├── services/
+│   └── userService.js    # Axios service for fetching and filtering users
+├── styles/
+│   └── globals.css       # Global CSS styles
+├── __tests__/
+│   ├── userService.test.js  # Unit tests for user service
+│   ├── usersList.test.js    # Unit tests for UsersList component
+├── jest.config.js        # Jest configuration
+├── README.md             # Project documentation
+└── .env.local            # Environment variables (not committed)
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Testing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Run Tests
+
+To execute the tests, run:
+
+```bash
+npm test
+```
+
+### Testing Tools
+
+- **Jest**: Used for unit testing.
+- **React Testing Library**: Used for testing React components.
+
+---
+
+## Deployment
+
+### Build the Project
+
+To prepare the project for production, run:
+
+```bash
+npm run build
+```
+
+### Start the Production Server
+
+Start the production server with:
+
+```bash
+npm start
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+1. **404 Error on `/users`**
+
+   - Verify that the `users.js` file is in the `pages` directory.
+   - Restart the development server after adding or updating routes.
+
+2. **Environment Variable Errors**
+   - Check your `.env.local` file for correct variable names and values.
